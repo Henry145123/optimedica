@@ -47,7 +47,7 @@ public class ProductoServiceImpl implements ProductoService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String fechaFormateada = dateFormat.format(fecha);
 
-        String nombreImagen = imagenService.cargarImagen(imagen,producto.getCategoria().getCategoria(),fechaFormateada);
+        String nombreImagen = imagenService.cargarImagen(imagen,producto.getCategoria().getNombre(),fechaFormateada);
         producto.setImagen(nombreImagen);
         Producto prod = repository.save(producto);
 
@@ -68,7 +68,7 @@ public class ProductoServiceImpl implements ProductoService {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String fechaFormateada = dateFormat.format(fecha);
 
-            String nombreImagen = imagenService.cargarImagen(imagen,producto.getCategoria().getCategoria(),fechaFormateada);
+            String nombreImagen = imagenService.cargarImagen(imagen,producto.getCategoria().getNombre(),fechaFormateada);
             producto.setImagen(nombreImagen);
         }
 

@@ -8,9 +8,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +32,9 @@ public class CategoriaController {
     }
     //ACTUALIZAR CATEGORIA
     @PutMapping("/categoria/{id_categoria}")
-    public ResponseEntity<?> actualizarCategorias(@Validated @RequestBody Categoria categoria, BindingResult result, @PathVariable Integer id_categoria){
+    public ResponseEntity<?> actualizarCategorias(@Valid @RequestBody Categoria categoria, BindingResult result, @PathVariable Integer id_categoria){
 
-        Categoria nuevaCAtegoria = service.listarPorId(id_categoria);
+        Categoria nuevaCategoria = service.listarPorId(id_categoria);
         Categoria actualizarCategoria = null;
         Map<String, Object> response = new HashMap<>();
         //manejo de errores
@@ -46,15 +47,15 @@ public class CategoriaController {
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
         }
         //--------------
-        if(nuevaCAtegoria == null){
+        if(nuevaCategoria == null){
             response.put("mensaje", "Error: no se pudo editar la categoria ID: ".concat(id_categoria.toString().concat(" no existe en la base de datos!")));
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
         //-------------
         try {
-            nuevaCAtegoria.setNombre(categoria.getNombre());
+            nuevaCategoria.setNombre(categoria.getNombre());
 
-            actualizarCategoria = service.actualizarCat(nuevaCAtegoria);
+            actualizarCategoria = service.actualizarCat(nuevaCategoria);
 
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al actualizar en la base de datos");
@@ -88,7 +89,7 @@ public class CategoriaController {
     }
     //CREANDO NUEVA CATEGORIA
     @PostMapping("/categoria")
-    public ResponseEntity<?> nuevaCateg(@Validated @RequestBody Categoria categoria, BindingResult result) {
+    public ResponseEntity<?> nuevaCateg(@Valid @RequestBody Categoria categoria, BindingResult result) {
 
         Categoria nuevaCategoria = null;
         Map<String, Object> response = new HashMap<>();
@@ -116,7 +117,7 @@ public class CategoriaController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
 
-    //eliminar datos del cliente
+    //eliminar datos del categoria
     @DeleteMapping("/categoria/{id_categoria}")
     public ResponseEntity<?> eliminarCategoria(@PathVariable Integer id_categoria){
         Map<String, Object> response = new HashMap<>();
