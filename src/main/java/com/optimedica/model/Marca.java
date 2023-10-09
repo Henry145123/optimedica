@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -25,7 +26,8 @@ public class Marca {
     @Size(min = 4, max = 50, message = "el tamaño debe contener entre 4 y 50 caracteres")
     @Column(nullable = false)
     private String nombre;
-
+    private Timestamp fecha;
     private String imagen;
+
 
 }

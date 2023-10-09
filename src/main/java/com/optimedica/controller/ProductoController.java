@@ -93,8 +93,6 @@ public class ProductoController {
         } else {
             return ResponseEntity.notFound().build();
         }
-
-
     }
 
 }
