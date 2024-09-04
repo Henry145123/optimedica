@@ -49,6 +49,7 @@ public class CategoriaController {
         if (cat5 == null){
             throw new Exception("No existe Id");
         }
+        //commit
         service.eliminarCat(id_categoria);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
